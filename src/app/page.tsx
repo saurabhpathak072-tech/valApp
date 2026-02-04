@@ -1,63 +1,115 @@
 "use client";
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import StylishValentineButtons from "@/components/YesNoBtns";
+import { APP_CONSTANTS } from "@/constants";
+import confetti from "canvas-confetti";
+import { AnimatePresence, easeOut, motion, type Variants } from "framer-motion";
 import { useState } from "react";
 
-export default function ValentineRequest() {
-  const router = useRouter();
-  const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 });
+export default function ElegantValentine() {
+  const [isAccepted, setIsAccepted] = useState(false);
 
-  const handleNoHover = () => {
-    // Randomly move the "No" button when she tries to click it
-    const randomX = Math.random() * 300 - 150;
-    const randomY = Math.random() * 300 - 150;
-    setNoButtonPos({ x: randomX, y: randomY });
-  };
 
   const handleYes = () => {
-    // Store a short-lived flag for the next route (no URL params).
-    sessionStorage.setItem("valentineAccepted", "1");
-    router.push("/result");
+    setIsAccepted(true);
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ["#D4AF37", "#800000"],
+    });
+  };
+
+  const containerVars: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.8, delayChildren: 0.5 },
+    },
+  };
+
+  const itemVars: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1, ease: easeOut } },
   };
 
   return (
-    <>
-      {/* Traditional Border Motif could go here */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="text-center"
-      >
-        {/* <h2 className="text-[#800000] text-2xl font-serif mb-2 italic">Priye,</h2> */}
-        <h1 className="text-4xl md:text-6xl font-bold text-[#D4AF37] mb-8 drop-shadow-sm">
-          Will you be my Valentine?
-        </h1>
-        <p className="text-[#800000] font-semibold mb-10 text-lg">
-          {/* "Sakhya re, tujya vina karme na..." <br /> */}
-          Life is incomplete without you
-        </p>
-
-        <div className="flex flex-col md:flex-row gap-6 items-center justify-center">
-          {/* YES BUTTON */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={handleYes}
-            className="bg-[#E65100] hover:bg-[#BF360C] text-white px-10 py-4 rounded-full text-2xl font-bold shadow-lg transition-colors"
+    <div className="min-h-screen bg-[#FFFBF2] flex flex-col items-center justify-center overflow-hidden p-6 relative">
+      {/* Animated Background Lotus Petals */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              rotate: 360,
+              scale: [1, 1.1, 1],
+              opacity: [0.1, 0.2, 0.1]
+            }}
+            transition={{ duration: 20, repeat: Infinity, delay: i * 2 }}
+            className="absolute text-[20rem] text-[#D4AF37] opacity-10"
+            style={{ top: i * 20 + "%", left: i % 2 === 0 ? "-10%" : "70%" }}
           >
-            Ho (Yes!)
-          </motion.button>
+            {APP_CONSTANTS.LOTUS}
+          </motion.div>
+        ))}
+      </div>
 
-          {/* NO BUTTON - The Evasive One */}
-          <motion.button
-            animate={{ x: noButtonPos.x, y: noButtonPos.y }}
-            onMouseEnter={handleNoHover}
-            className="bg-gray-300 text-gray-700 px-8 py-3 rounded-full text-xl cursor-not-allowed"
+      <AnimatePresence mode="wait">
+        {!isAccepted ? (
+          <motion.div
+            variants={containerVars}
+            initial="hidden"
+            animate="visible"
+            className="z-10 text-center max-w-2xl"
           >
-            Nahi (No)
-          </motion.button>
-        </div>
-      </motion.div>
-    </>
+
+            <motion.div variants={itemVars} className="mb-8">
+              <h1 className="text-5xl md:text-7xl font-bold text-[#800000] font-serif leading-tight">
+                {APP_CONSTANTS.WILL_YOU_BE_MY} <br />
+                <span className="text-[#D4AF37] italic">{APP_CONSTANTS.VALENTINE}?</span>
+              </h1>
+            </motion.div>
+
+            <motion.div variants={itemVars} className="space-y-4 mb-12">
+              <p className="text-[#800000] text-2xl font-serif italic">
+                {APP_CONSTANTS.LIFE_IS_INCOMPATIBLE}
+              </p>
+              <p className="text-[#5C4033] text-lg font-light tracking-wide max-w-md mx-auto">
+                {APP_CONSTANTS.IN_THE_STORYOF_MY_LIFE_YOU_ARE_MOST_BEAUTIFUL_CHAPTER}
+                {APP_CONSTANTS.I_PROMISE_TO_BE_THE_REASON_BEHIND_YOUR_SMILE}
+              </p>
+              <div className="h-[1px] w-32 bg-[#D4AF37] mx-auto" />
+            </motion.div>
+
+            <StylishValentineButtons onYes={handleYes} />
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="z-10 text-center bg-white p-12 border-[16px] border-double border-[#D4AF37] shadow-2xl"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <h2 className="text-[#800000] text-4xl font-serif mb-6">It&apos;s a &apos;Yes&apos;!</h2>
+              <p className="text-[#5C4033] text-2xl italic leading-loose">
+                &quot;{APP_CONSTANTS.YOUR_PRESENCE_IS_MY_PEACE_AND_YOUR_SMILE_IS_MY_HOME}<br /> {APP_CONSTANTS.I_WILL_CHERISH_YOU_WITH_A_LOVE_THAT_IS_AS_TIMELESS_AS_THE_ANCIENT_VERSES_AND_AS_DEEP_AS_THE_SILENT_SEA} <br />
+                <span className="text-[#800000] font-bold">{APP_CONSTANTS.I_PROMISE}</span>&quot;
+              </p>
+              <motion.div
+                className="mt-8 text-6xl"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                {APP_CONSTANTS.HEART}
+                {APP_CONSTANTS.RING}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

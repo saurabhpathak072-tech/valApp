@@ -3,44 +3,33 @@
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ResultClient() {
     const router = useRouter();
-    // const hasFiredConfetti = useRef(false);
+    const hasFiredConfetti = useRef(false);
+    const accepted = sessionStorage.getItem("valentineAccepted") === "1";
 
-    // Use a store read to avoid setState-in-effect and to prevent SSR/client mismatches.
-    const accepted = useSyncExternalStore<boolean | null>(
-        () => () => { },
-        () => sessionStorage.getItem("valentineAccepted") === "1",
-        () => null,
-    );
+    useEffect(() => {
+        if (!accepted) {
+            router.replace("/");
+        }
+    }, [accepted, router]);
 
-    const confettiHandler = () => {
+    useEffect(() => {
+        if (!accepted) return;
+        if (hasFiredConfetti.current) return;
+
+        hasFiredConfetti.current = true;
         confetti({
             particleCount: 150,
             spread: 70,
             origin: { y: 0.6 },
             colors: ["#FF9933", "#FFFFFF", "#138808", "#800000"],
         });
-    };
-
-    useEffect(() => {
-        if (accepted === false) {
-            router.replace("/");
-        }
-    }, [accepted, router]);
-
-    useEffect(() => {
-        if (accepted !== true) return;
-        confettiHandler();
-        const intervalId = setInterval(confettiHandler, 2000);
-
-        return () => clearInterval(intervalId);
-
     }, [accepted]);
 
-    if (accepted !== true) return null;
+    if (!accepted) return null;
 
     return (
         <motion.div
