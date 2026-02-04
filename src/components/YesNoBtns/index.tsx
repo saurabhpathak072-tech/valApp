@@ -1,4 +1,5 @@
 "use client";
+import { APP_CONSTANTS } from "@/constants";
 import { motion } from "framer-motion";
 import TeasingNoButton from "../NoBtn";
 
@@ -37,8 +38,8 @@ export default function StylishValentineButtons({ onYes }: StylishValentineButto
                         transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
                     />
-                    <span className="relative">हो</span>
-                    <span className="text-xl relative opacity-80">(Yes)</span>
+                    <span className="relative">{APP_CONSTANTS.HO}</span>
+                    <span className="text-xl relative opacity-80">({APP_CONSTANTS.YES})</span>
                 </motion.button>
             </div>
 
@@ -51,7 +52,7 @@ export default function StylishValentineButtons({ onYes }: StylishValentineButto
                 animate={{ opacity: 0.4 }}
                 className="absolute -bottom-10 text-[#5C4033] text-xs uppercase tracking-tighter"
             >
-                choose wisely, सखये...
+                {APP_CONSTANTS.CHOOSE_WISELY}
             </motion.p>
         </div>
     );

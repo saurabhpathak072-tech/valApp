@@ -93,7 +93,7 @@ export default function ElegantValentine() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <h2 className="text-[#800000] text-4xl font-serif mb-6">It&apos;s a &apos;Yes&apos;!</h2>
+              <h2 className="text-[#800000] text-4xl font-serif mb-6">{APP_CONSTANTS.ITS_A_YES}</h2>
               <p className="text-[#5C4033] text-2xl italic leading-loose">
                 &quot;{APP_CONSTANTS.YOUR_PRESENCE_IS_MY_PEACE_AND_YOUR_SMILE_IS_MY_HOME}<br /> {APP_CONSTANTS.I_WILL_CHERISH_YOU_WITH_A_LOVE_THAT_IS_AS_TIMELESS_AS_THE_ANCIENT_VERSES_AND_AS_DEEP_AS_THE_SILENT_SEA} <br />
                 <span className="text-[#800000] font-bold">{APP_CONSTANTS.I_PROMISE}</span>&quot;

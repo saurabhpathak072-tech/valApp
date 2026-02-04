@@ -6,8 +6,14 @@ export enum APP_CONSTANTS {
     I_PROMISE_TO_BE_THE_REASON_BEHIND_YOUR_SMILE = "I promise to be the reason behind your smile, today and every day.",
     YOUR_PRESENCE_IS_MY_PEACE_AND_YOUR_SMILE_IS_MY_HOME = "Your presence is my peace, and your smile is my home.",
     I_WILL_CHERISH_YOU_WITH_A_LOVE_THAT_IS_AS_TIMELESS_AS_THE_ANCIENT_VERSES_AND_AS_DEEP_AS_THE_SILENT_SEA = "I will cherish you with a love that is as timeless as the ancient verses and as deep as the silent sea,",
+    ITS_A_YES = "It's a 'Yes'!",
     I_PROMISE = "I promise!",
     HEART = "❤️",
     RING = "💍",
-    LOTUS = "🌸"
+    LOTUS = "🌸",
+    HO = "हो",
+    YES = "Yes",
+    CHOOSE_WISELY = "choose wisely, सखये...",
+    NAHI = "नाही",
+    NO = "No",
 }

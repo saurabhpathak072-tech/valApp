@@ -1,4 +1,5 @@
 "use client";
+import { APP_CONSTANTS } from "@/constants";
 import { motion, useAnimation } from "framer-motion";
 import { useState } from "react";
 
@@ -57,15 +58,15 @@ export default function TeasingNoButton() {
                 },
             }}
         >
-            {/* A "Ghost" effect that trails behind the button */}
+
             <motion.span
                 animate={controls}
                 className="block"
             >
-                नाही (No)
+                {APP_CONSTANTS.NAHI} ({APP_CONSTANTS.NO})
             </motion.span>
 
-            {/* Decorative strike-through that appears on hover */}
+
             <motion.div
                 initial={{ width: 0 }}
                 whileHover={{ width: "100%" }}
