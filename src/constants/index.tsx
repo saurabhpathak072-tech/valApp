@@ -16,4 +16,10 @@ export enum APP_CONSTANTS {
     CHOOSE_WISELY = "choose wisely, सखये...",
     NAHI = "नाही",
     NO = "No",
+    MADE_WITH_LOVE = "Made with ❤️ by Saurabh",
+    DEAR = "Dear"
+}
+
+export enum NAME {
+    SAYALI = "Sayali"
 }

@@ -1,6 +1,6 @@
 "use client";
 import StylishValentineButtons from "@/components/YesNoBtns";
-import { APP_CONSTANTS } from "@/constants";
+import { APP_CONSTANTS, NAME } from "@/constants";
 import confetti from "canvas-confetti";
 import { AnimatePresence, easeOut, motion, type Variants } from "framer-motion";
 import { useState } from "react";
@@ -61,6 +61,12 @@ export default function ElegantValentine() {
             animate="visible"
             className="z-10 text-center max-w-2xl"
           >
+            <motion.p
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+              className="text-[#800000] font-serif italic text-xl mb-2"
+            >
+              {APP_CONSTANTS.DEAR} {NAME.SAYALI},
+            </motion.p>
 
             <motion.div variants={itemVars} className="mb-8">
               <h1 className="text-5xl md:text-7xl font-bold text-[#800000] font-serif leading-tight">

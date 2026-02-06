@@ -1,3 +1,4 @@
+import { APP_CONSTANTS } from "@/constants";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -25,11 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="min-h-screen bg-[#FFFBF2] flex flex-col items-center justify-center p-4 border-[12px] border-[#800000]">
-
           {children}
+          <footer className="absolute bottom-4 text-sm text-[#800000] font-mono">
+            {APP_CONSTANTS.MADE_WITH_LOVE}
+          </footer>
         </div>
       </body>
     </html>
