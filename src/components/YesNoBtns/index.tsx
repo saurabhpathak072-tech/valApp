@@ -50,9 +50,9 @@ export default function StylishValentineButtons({ onYes }: StylishValentineButto
             <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.4 }}
-                className="absolute -bottom-10 text-[#5C4033] text-xs uppercase tracking-tighter"
+                className="absolute bottom-10 text-[#5C4033] text-xs uppercase tracking-tighter"
             >
-                {APP_CONSTANTS.CHOOSE_WISELY}
+                {APP_CONSTANTS.CHOOSE_WISELY} {APP_CONSTANTS.DEAR}...
             </motion.p>
         </div>
     );
