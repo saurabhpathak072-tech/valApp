@@ -1,15 +1,27 @@
 "use client";
 import { APP_CONSTANTS } from "@/constants";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import TeasingNoButton from "../NoBtn";
 
 type StylishValentineButtonsProps = {
-    onYes: () => void;
+    onYes: () => void | Promise<void>;
+    onNo: () => void | Promise<void>;
 };
 
-export default function StylishValentineButtons({ onYes }: StylishValentineButtonsProps) {
+export default function StylishValentineButtons({ onYes, onNo }: StylishValentineButtonsProps) {
 
+    const [isLoading, setIsLoading] = useState(false);
 
+    const handleYes = async () => {
+        if (isLoading) return;
+        setIsLoading(true);
+        try {
+            await onYes();
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <div className="flex flex-col sm:flex-row items-center justify-center gap-16 mt-12 relative min-h-[250px]">
@@ -29,8 +41,10 @@ export default function StylishValentineButtons({ onYes }: StylishValentineButto
                 <motion.button
                     whileHover={{ scale: 1.1, y: -5 }}
                     whileTap={{ scale: 0.9 }}
-                    onClick={onYes}
-                    className="relative px-14 py-5 bg-gradient-to-b from-[#800000] to-[#4A0404] text-[#FFFBF2] font-serif text-3xl font-bold rounded-full border-2 border-[#D4AF37] shadow-[0_10px_20px_rgba(0,0,0,0.3)] tracking-widest flex items-center gap-3 overflow-hidden"
+                    onClick={handleYes}
+                    disabled={isLoading}
+                    aria-busy={isLoading}
+                    className="relative px-14 py-5 bg-gradient-to-b from-[#800000] to-[#4A0404] text-[#FFFBF2] font-serif text-3xl font-bold rounded-full border-2 border-[#D4AF37] shadow-[0_10px_20px_rgba(0,0,0,0.3)] tracking-widest flex items-center gap-3 overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                     {/* Shimmer Effect */}
                     <motion.div
@@ -38,13 +52,24 @@ export default function StylishValentineButtons({ onYes }: StylishValentineButto
                         transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
                     />
-                    <span className="relative">{APP_CONSTANTS.HO}</span>
-                    <span className="text-xl relative opacity-80">({APP_CONSTANTS.YES})</span>
+                    {isLoading ? (
+                        <>
+                            <span className="relative inline-flex items-center gap-3">
+                                <span className="h-5 w-5 rounded-full border-2 border-[#D4AF37] border-t-transparent animate-spin" />
+                                <span className="relative">Loading...</span>
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            <span className="relative">{APP_CONSTANTS.HO}</span>
+                            <span className="text-xl relative opacity-80">({APP_CONSTANTS.YES})</span>
+                        </>
+                    )}
                 </motion.button>
             </div>
 
             {/* --- THE DISAPPEARING NO BUTTON --- */}
-            <TeasingNoButton />
+            <TeasingNoButton onNo={onNo} />
 
             {/* Small Instruction Text */}
             <motion.p

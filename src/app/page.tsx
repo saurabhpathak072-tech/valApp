@@ -1,6 +1,7 @@
 "use client";
 import StylishValentineButtons from "@/components/YesNoBtns";
 import { APP_CONSTANTS, NAME } from "@/constants";
+import api from "@/lib/axios";
 import confetti from "canvas-confetti";
 import { AnimatePresence, easeOut, motion, type Variants } from "framer-motion";
 import { useState } from "react";
@@ -9,15 +10,33 @@ export default function ElegantValentine() {
   const [isAccepted, setIsAccepted] = useState(false);
 
 
-  const handleYes = () => {
-    setIsAccepted(true);
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ["#D4AF37", "#800000"],
+  const handleYes = async () => {
+    return api.post("/response", {
+      Yes: true,
+      No: false,
+    }).then(() => {
+      setIsAccepted(true);
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ["#D4AF37", "#800000"],
+      });
+    }).catch((err) => {
+      console.error("Error recording response:", err);
     });
   };
+
+  const handleNo = async () => {
+    return api.post("/response", {
+      Yes: false,
+      No: true,
+    }).then(() => {
+      alert(APP_CONSTANTS.CHOOSE_WISELY + APP_CONSTANTS.DEAR);
+    }).catch((err) => {
+      console.error("Error recording response:", err);
+    });
+  }
 
   const containerVars: Variants = {
     hidden: { opacity: 0 },
@@ -86,7 +105,7 @@ export default function ElegantValentine() {
               <div className="h-[1px] w-32 bg-[#D4AF37] mx-auto" />
             </motion.div>
 
-            <StylishValentineButtons onYes={handleYes} />
+            <StylishValentineButtons onNo={handleNo} onYes={handleYes} />
           </motion.div>
         ) : (
           <motion.div

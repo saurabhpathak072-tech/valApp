@@ -3,7 +3,11 @@ import { APP_CONSTANTS } from "@/constants";
 import { motion, useAnimation } from "framer-motion";
 import { useState } from "react";
 
-export default function TeasingNoButton() {
+type TeasingNoButtonProps = {
+    onNo: () => void | Promise<void>;
+};
+
+const TeasingNoButton: React.FC<TeasingNoButtonProps> = ({ onNo }) => {
     const [noPos, setNoPos] = useState({ x: 0, y: 0 });
     const controls = useAnimation();
 
@@ -19,6 +23,8 @@ export default function TeasingNoButton() {
         const randomY = Math.random() * 300 - 150;
 
         setNoPos({ x: randomX, y: randomY });
+        // 3. Finally, call the onNo callback to record her choice
+        await onNo();
     };
 
     return (
@@ -75,3 +81,5 @@ export default function TeasingNoButton() {
         </motion.button>
     );
 }
+
+export default TeasingNoButton;
