@@ -46,7 +46,7 @@ const TeasingNoButton: React.FC<TeasingNoButtonProps> = ({ onNo }) => {
             onHoverEnd={() => controls.stop()}
             onMouseEnter={moveNo}
             onClick={handleNoClick} // For mobile users
-            className="px-8 py-3 bg-white/20 border border-[#800000]/30 text-[#800000]/50 font-serif italic text-lg rounded-full backdrop-blur-sm shadow-inner relative overflow-hidden"
+            className="px-8 py-3  border bg-[#FFFBF2] border-[#800000]/30 text-[#800000]/50 font-serif italic text-lg rounded-full backdrop-blur-sm shadow-inner relative overflow-hidden"
             transition={{
                 x: {
                     type: "spring",
