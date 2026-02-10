@@ -5,13 +5,14 @@ import { useState } from "react";
 import TeasingNoButton from "../NoBtn";
 
 type StylishValentineButtonsProps = {
-    onYes: () => void | Promise<void>;
-    onNo: () => void | Promise<void>;
+    onYes: () => Promise<void>;
+    onNo: () => Promise<void>;
 };
 
 export default function StylishValentineButtons({ onYes, onNo }: StylishValentineButtonsProps) {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [yesScale, setYesScale] = useState(1);
 
     const handleYes = async () => {
         if (isLoading) return;
@@ -21,6 +22,11 @@ export default function StylishValentineButtons({ onYes, onNo }: StylishValentin
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const handleNo = async () => {
+        setYesScale((current) => Math.min(current + 0.12, 2.2));
+        await onNo();
     };
 
     return (
@@ -39,8 +45,9 @@ export default function StylishValentineButtons({ onYes, onNo }: StylishValentin
                 />
 
                 <motion.button
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    whileTap={{ scale: 0.9 }}
+                    animate={{ scale: yesScale }}
+                    whileHover={{ scale: yesScale * 1.1, y: -5 }}
+                    whileTap={{ scale: yesScale * 0.9 }}
                     onClick={handleYes}
                     disabled={isLoading}
                     aria-busy={isLoading}
@@ -69,7 +76,7 @@ export default function StylishValentineButtons({ onYes, onNo }: StylishValentin
             </div>
 
             {/* --- THE DISAPPEARING NO BUTTON --- */}
-            <TeasingNoButton onNo={onNo} />
+            <TeasingNoButton onNo={handleNo} />
 
             {/* Small Instruction Text */}
             <motion.p

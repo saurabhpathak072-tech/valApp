@@ -10,11 +10,13 @@ export default function ElegantValentine() {
   const [isAccepted, setIsAccepted] = useState(false);
 
 
-  const handleYes = async () => {
-    return api.post("/response", {
-      Yes: true,
-      No: false,
-    }).then(() => {
+  const handleYes = async (): Promise<void> => {
+    try {
+      await api.post("/response", {
+        Yes: true,
+        No: false,
+      });
+
       setIsAccepted(true);
       confetti({
         particleCount: 150,
@@ -22,20 +24,20 @@ export default function ElegantValentine() {
         origin: { y: 0.6 },
         colors: ["#D4AF37", "#800000"],
       });
-    }).catch((err) => {
+    } catch (err) {
       console.error("Error recording response:", err);
-    });
+    }
   };
 
-  const handleNo = async () => {
-    return api.post("/response", {
-      Yes: false,
-      No: true,
-    }).then(() => {
-      alert(APP_CONSTANTS.CHOOSE_WISELY + APP_CONSTANTS.DEAR);
-    }).catch((err) => {
+  const handleNo = async (): Promise<void> => {
+    try {
+      await api.post("/response", {
+        Yes: false,
+        No: true,
+      });
+    } catch (err) {
       console.error("Error recording response:", err);
-    });
+    }
   }
 
   const containerVars: Variants = {

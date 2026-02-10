@@ -4,7 +4,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useState } from "react";
 
 type TeasingNoButtonProps = {
-    onNo: () => void | Promise<void>;
+    onNo: () => Promise<void>;
 };
 
 const TeasingNoButton: React.FC<TeasingNoButtonProps> = ({ onNo }) => {
@@ -23,8 +23,10 @@ const TeasingNoButton: React.FC<TeasingNoButtonProps> = ({ onNo }) => {
         const randomY = Math.random() * 300 - 150;
 
         setNoPos({ x: randomX, y: randomY });
-        // 3. Finally, call the onNo callback to record her choice
-        await onNo();
+    };
+
+    const handleNoClick = async () => {
+        return Promise.all([onNo(), moveNo()]);
     };
 
     return (
@@ -43,7 +45,7 @@ const TeasingNoButton: React.FC<TeasingNoButtonProps> = ({ onNo }) => {
             }
             onHoverEnd={() => controls.stop()}
             onMouseEnter={moveNo}
-            onClick={moveNo} // For mobile users
+            onClick={handleNoClick} // For mobile users
             className="px-8 py-3 bg-white/20 border border-[#800000]/30 text-[#800000]/50 font-serif italic text-lg rounded-full backdrop-blur-sm shadow-inner relative overflow-hidden"
             transition={{
                 x: {
