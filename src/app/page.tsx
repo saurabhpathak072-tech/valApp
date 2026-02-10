@@ -4,17 +4,20 @@ import { APP_CONSTANTS, NAME } from "@/constants";
 import api from "@/lib/axios";
 import confetti from "canvas-confetti";
 import { AnimatePresence, easeOut, motion, type Variants } from "framer-motion";
+import { Sparkles } from "lucide-react";
 import { useState } from "react";
+import styles from "./page.module.css";
 
 export default function ElegantValentine() {
   const [isAccepted, setIsAccepted] = useState(false);
 
 
-  const handleYes = async (): Promise<void> => {
+  const handleYes = async (text: string): Promise<void> => {
     try {
       await api.post("/response", {
         Yes: true,
         No: false,
+        yesText: text,
       });
 
       setIsAccepted(true);
@@ -24,16 +27,18 @@ export default function ElegantValentine() {
         origin: { y: 0.6 },
         colors: ["#D4AF37", "#800000"],
       });
+      return Promise.resolve();
     } catch (err) {
       console.error("Error recording response:", err);
     }
   };
 
-  const handleNo = async (): Promise<void> => {
+  const handleNo = async (text: string): Promise<void> => {
     try {
-      await api.post("/response", {
+      return api.post("/response", {
         Yes: false,
         No: true,
+        NoText: text,
       });
     } catch (err) {
       console.error("Error recording response:", err);
@@ -54,7 +59,7 @@ export default function ElegantValentine() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFBF2] flex flex-col items-center justify-center overflow-hidden p-6 relative">
+    <div className={`min-h-screen bg-[#FFFBF2] flex flex-col items-center justify-center overflow-hidden p-6 relative ${styles['w-mobile-100-desktop-50']}`}>
       {/* Animated Background Lotus Petals */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(8)].map((_, i) => (
@@ -104,6 +109,10 @@ export default function ElegantValentine() {
                 {APP_CONSTANTS.IN_THE_STORYOF_MY_LIFE_YOU_ARE_MOST_BEAUTIFUL_CHAPTER}
                 {APP_CONSTANTS.I_PROMISE_TO_BE_THE_REASON_BEHIND_YOUR_SMILE}
               </p>
+              <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+                <Sparkles className="absolute top-10 left-10 text-yellow-400 opacity-50 w-8 h-8 animate-pulse" />
+                <Sparkles className="absolute bottom-20 right-20 text-yellow-400 opacity-50 w-12 h-12 animate-pulse" />
+              </div>
               <div className="h-[1px] w-32 bg-[#D4AF37] mx-auto" />
             </motion.div>
 

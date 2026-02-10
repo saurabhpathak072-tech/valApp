@@ -18,9 +18,22 @@ export enum APP_CONSTANTS {
     NAHI = "नाही",
     NO = "No",
     MADE_WITH_LOVE = "Made with ❤️ by Saurabh",
-    DEAR = "Dear"
+    DEAR = "Dear",
+    SMILING_FACE = "😊",
 }
 
 export enum NAME {
     SAYALI = "Sayali"
 }
+
+export const NoPhrases = [
+    `${APP_CONSTANTS.NAHI} (${APP_CONSTANTS.NO}) ?`, // Gentle start
+    "Nakki ka? (Are you sure?)", // Standard check
+    "Jara vichar tar kar! 🤔", // "Just think about it!"
+    "Me bore nahi karnar! 🤞", // "I won't bore you" (Key fear addressed!)
+    "Promise, I'm a good boy! 😇", // Playful self-validation
+    "Aevdha bhav nako khau! 😆", // "Don't act so pricey" (Cheeky/Flirty)
+    "Please? Ek chance? 🌹", // Polite pleading
+    "Kay yaar... 💔", // "What is this..." (Fake sadness)
+    "Atta option nahiye! 😂", // "No option now!"
+];
