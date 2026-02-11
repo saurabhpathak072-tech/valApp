@@ -2,19 +2,18 @@
 import RoyalBtn from "@/components/common/RoyalBtn";
 import Modal from "@/components/Modal";
 import StylishValentineButtons from "@/components/YesNoBtns";
-import { APP_CONSTANTS, message, NAME } from "@/constants";
+import { APP_CONSTANTS, audioSrc, message, NAME } from "@/constants";
 import api from "@/lib/axios";
 import confetti from "canvas-confetti";
 import { AnimatePresence, easeOut, motion, type Variants } from "framer-motion";
 import { Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 
 export default function ElegantValentine() {
   const [isAccepted, setIsAccepted] = useState(false);
   const [isYesModalOpen, setIsYesModalOpen] = useState(false);
-
-
+  const audioRef = useRef<HTMLAudioElement>(null);
   const handleYes = async (text: string): Promise<void> => {
     try {
       await api.post("/response", {
@@ -35,6 +34,15 @@ export default function ElegantValentine() {
       console.error("Error recording response:", err);
     }
   };
+
+  useEffect(() => {
+    if (isYesModalOpen && audioRef.current) {
+      audioRef.current.play().catch(error => {
+        console.log("Autoplay prevented, but will play on next click:", error);
+      });
+      audioRef.current.volume = 0.3; // Set to a soft background level
+    }
+  }, [isYesModalOpen]);
 
   const handleModal = () => {
     setIsYesModalOpen((isYes) => !isYes);
@@ -74,6 +82,15 @@ export default function ElegantValentine() {
         title={APP_CONSTANTS.ITS_A_YES}
       >
         <motion.div className={styles.modalMessage}>
+          <audio ref={audioRef} loop>
+            {/* <source src="/assets/audio/bgsong.mp3" type="audio/mpeg" /> */}
+            {
+              audioSrc.map((src, index) => (
+                <source key={index} src={src} type="audio/mpeg" />
+              ))
+            }
+            Your browser does not support the audio element.
+          </audio>
           <motion.div className="text-[#fff] flex flex-col gap-4 text-xl italic leading-relaxed bg-black/50 p-6 rounded-lg">
             {message.map((msg, index) => (
               <motion.p
