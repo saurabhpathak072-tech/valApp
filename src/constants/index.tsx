@@ -20,6 +20,9 @@ export enum APP_CONSTANTS {
     MADE_WITH_LOVE = "Made with ❤️ by Saurabh",
     DEAR = "Dear",
     SMILING_FACE = "😊",
+    SPECIAL_MESSAGE_FOR_YOU = "Special message! 🌟",
+    AS_NATURE_BLOOMS_AND_WE_HEAD_TOWARDS_SHIVAS_NIGHT = "As nature blooms and we head towards Shiva's night",
+    WILL_YOU_BE_THE_ONE_WHO_MAKES_MY_WORLD_FEEL_SO_BRIGHT = "Will you be the one, who makes my world feel so bright?"
 }
 
 export enum NAME {
@@ -37,3 +40,5 @@ export const NoPhrases = [
     "Kay yaar... 💔", // "What is this..." (Fake sadness)
     "Atta option nahiye! 😂", // "No option now!"
 ];
+
+export const message = ["निसर्गाच्या कुशीत जसं प्रसन्न 'चांदणं' असावं, तसं तुझ्या शांत स्वभावात, मी स्वतःला विसरावं! ✨", "तुझ्या हास्याच्या गोडीत, माझं मन हरवावं, तुझ्या प्रेमाच्या सावलीत, माझं आयुष्य भरावं! 💖"];

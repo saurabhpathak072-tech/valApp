@@ -1,6 +1,8 @@
 "use client";
+import RoyalBtn from "@/components/common/RoyalBtn";
+import Modal from "@/components/Modal";
 import StylishValentineButtons from "@/components/YesNoBtns";
-import { APP_CONSTANTS, NAME } from "@/constants";
+import { APP_CONSTANTS, message, NAME } from "@/constants";
 import api from "@/lib/axios";
 import confetti from "canvas-confetti";
 import { AnimatePresence, easeOut, motion, type Variants } from "framer-motion";
@@ -10,6 +12,7 @@ import styles from "./page.module.css";
 
 export default function ElegantValentine() {
   const [isAccepted, setIsAccepted] = useState(false);
+  const [isYesModalOpen, setIsYesModalOpen] = useState(false);
 
 
   const handleYes = async (text: string): Promise<void> => {
@@ -27,23 +30,28 @@ export default function ElegantValentine() {
         origin: { y: 0.6 },
         colors: ["#D4AF37", "#800000"],
       });
-      return Promise.resolve();
+      return;
     } catch (err) {
       console.error("Error recording response:", err);
     }
   };
 
+  const handleModal = () => {
+    setIsYesModalOpen((isYes) => !isYes);
+  }
+
   const handleNo = async (text: string): Promise<void> => {
     try {
-      return api.post("/response", {
+      await api.post("/response", {
         Yes: false,
         No: true,
         NoText: text,
       });
+      return;
     } catch (err) {
       console.error("Error recording response:", err);
     }
-  }
+  };
 
   const containerVars: Variants = {
     hidden: { opacity: 0 },
@@ -60,6 +68,28 @@ export default function ElegantValentine() {
 
   return (
     <div className={`min-h-screen bg-[#FFFBF2] flex flex-col items-center justify-center overflow-hidden p-6 relative ${styles['w-mobile-100-desktop-50']}`}>
+      <Modal
+        open={isYesModalOpen}
+        onClose={() => setIsYesModalOpen(false)}
+        title={APP_CONSTANTS.ITS_A_YES}
+      >
+        <motion.div className={styles.modalMessage}>
+          <motion.div className="text-[#fff] flex flex-col gap-4 text-xl italic leading-relaxed bg-black/50 p-6 rounded-lg">
+            {message.map((msg, index) => (
+              <motion.p
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 + index * 0.5 }}
+              >
+                {msg}
+              </motion.p>
+            ))}
+          </motion.div>
+        </motion.div>
+
+      </Modal>
+
       {/* Animated Background Lotus Petals */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(8)].map((_, i) => (
@@ -142,6 +172,11 @@ export default function ElegantValentine() {
                 {APP_CONSTANTS.HEART}
                 {APP_CONSTANTS.RING}
               </motion.div>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-16 mt-12 relative ">
+                <RoyalBtn onClick={handleModal} >
+                  <span className="text-xl relative opacity-80">{APP_CONSTANTS.SPECIAL_MESSAGE_FOR_YOU}</span>
+                </RoyalBtn>
+              </div>
             </motion.div>
           </motion.div>
         )}

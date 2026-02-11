@@ -8,3 +8,12 @@
     width: 50%;
   }
 }
+
+.modalMessage {
+  background: url("/assets/img/Moon.png") no-repeat center center;
+  background-size: cover;
+  min-height: 50vh;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
