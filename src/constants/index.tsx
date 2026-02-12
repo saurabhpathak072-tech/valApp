@@ -46,5 +46,5 @@ export const message = ["निसर्गाच्या सान्निध
     "तुया महाशिवरात्रीच्या शुभ मुहूर्तावर...Will you be the Parvati to my Shiva, for the rest of time? ❤️",];
 
 export const audioSrc: string[] = [
-    // "/assets/audio/bgsong.mp3"
+    "/assets/audio/kadhiTu.mp3"
 ]

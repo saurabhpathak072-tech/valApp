@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 
 export default function ElegantValentine() {
-  const [isAccepted, setIsAccepted] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(true);
   const [isYesModalOpen, setIsYesModalOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const handleYes = async (text: string): Promise<void> => {
@@ -37,10 +37,12 @@ export default function ElegantValentine() {
 
   useEffect(() => {
     if (isYesModalOpen && audioRef.current) {
+      audioRef.current.currentTime = 30; // Start from the beginning
+      audioRef.current.loop = true; // Ensure it's paused before setting volume
+      audioRef.current.volume = 0.3; // Set to a soft background level
       audioRef.current.play().catch(error => {
         console.log("Autoplay prevented, but will play on next click:", error);
       });
-      audioRef.current.volume = 0.3; // Set to a soft background level
     }
   }, [isYesModalOpen]);
 
@@ -83,7 +85,6 @@ export default function ElegantValentine() {
       >
         <motion.div className={styles.modalMessage}>
           <audio ref={audioRef} loop>
-            {/* <source src="/assets/audio/bgsong.mp3" type="audio/mpeg" /> */}
             {
               audioSrc.map((src, index) => (
                 <source key={index} src={src} type="audio/mpeg" />

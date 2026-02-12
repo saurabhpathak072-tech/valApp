@@ -10,12 +10,16 @@ declare global {
 }
 
 const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DB = process.env.MONGODB_DB;
 
 if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-const mongodbUri: string = MONGODB_URI;
+const mongodbUri: string =
+  MONGODB_URI +
+  (MONGODB_DB ? `/${MONGODB_DB}` : "/my-valentine") +
+  "?retryWrites=true&w=majority";
 
 // Check if we have a cached connection to avoid re-connecting
 const cached: MongooseCache =
