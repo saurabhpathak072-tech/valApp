@@ -151,7 +151,7 @@ export default function ElegantValentine() {
 
             <motion.div variants={itemVars} className="space-y-4 mb-12">
               <p className="text-[#800000] text-2xl font-serif italic">
-                {APP_CONSTANTS.LIFE_IS_INCOMPATIBLE}
+                {APP_CONSTANTS.LIFE_IS_INCOMPLETE}
               </p>
               <p className="text-[#5C4033] text-lg font-light tracking-wide max-w-md mx-auto">
                 {APP_CONSTANTS.IN_THE_STORYOF_MY_LIFE_YOU_ARE_MOST_BEAUTIFUL_CHAPTER}

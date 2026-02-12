@@ -1,7 +1,7 @@
 export enum APP_CONSTANTS {
     WILL_YOU_BE_MY = "Will you be my",
     VALENTINE = "Valentine",
-    LIFE_IS_INCOMPATIBLE = "\"Life is incompatible without you...\"",
+    LIFE_IS_INCOMPLETE = "\"Life is Incomplete without you...\"",
     IN_THE_STORYOF_MY_LIFE_YOU_ARE_MOST_BEAUTIFUL_CHAPTER = "In the story of my life, you are the most beautiful chapter.",
     I_PROMISE_TO_BE_THE_REASON_BEHIND_YOUR_SMILE = "I promise to be the reason behind your smile, today and every day.",
     YOUR_PRESENCE_IS_MY_PEACE_AND_YOUR_SMILE_IS_MY_HOME = "Your presence is my peace, and your smile is my home.",
@@ -41,7 +41,7 @@ export const NoPhrases = [
     "Atta option nahiye! 😂", // "No option now!"
 ];
 
-export const message = ["निसर्गाच्या सान्निध्यात जशी मनाला शांतता मिळते, तशीच तुझी साथ माझ्या आयुष्यात चैतन्य फुलवते! 🌿",
+export const message = ["निसर्गाच्या कुशीत जसं प्रसन्न चांदणं असते, तशीच तुझी साथ माझ्या आयुष्यात चैतन्य फुलवते! 🌿",
     "शिव-शक्तीचं नातं जसं अतूट आणि 'Divine' आहे, तुझ्याशी जोडलेलं हे कनेक्शन, is a blessing that's mine! ✨",
     "तुया महाशिवरात्रीच्या शुभ मुहूर्तावर...Will you be the Parvati to my Shiva, for the rest of time? ❤️",];
 
