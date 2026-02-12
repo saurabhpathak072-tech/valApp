@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 
 export default function ElegantValentine() {
-  const [isAccepted, setIsAccepted] = useState(true);
+  const [isAccepted, setIsAccepted] = useState(false);
   const [isYesModalOpen, setIsYesModalOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const handleYes = async (text: string): Promise<void> => {
