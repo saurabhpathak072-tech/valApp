@@ -46,8 +46,17 @@ export default function ElegantValentine() {
     }
   }, [isYesModalOpen]);
 
-  const handleModal = () => {
-    setIsYesModalOpen((isYes) => !isYes);
+  const handleModal = async () => {
+    try {
+      setIsYesModalOpen((isYes) => !isYes);
+      await api.post("/showmessage", {
+        showMessage: true,
+      });
+    } catch (err) {
+      console.error("Error recording response:", err);
+    }
+
+
   }
 
   const handleNo = async (text: string): Promise<void> => {
